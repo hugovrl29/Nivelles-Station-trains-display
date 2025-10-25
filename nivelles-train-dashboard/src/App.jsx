@@ -8,6 +8,7 @@ function App() {
   const [loading, setLoading] = useState(true)
 
 
+  // fetch data
   useEffect(() => {
 
     async function loadData() {
@@ -23,13 +24,19 @@ function App() {
 
   }, [])
 
+  // before receiving data
   if (loading) {
     return <p> Chargement des departs...</p>;
   }
   
+  // compute mean delay
+  const avgDelay = departures.reduce((sum, train) => sum += Number(train.delay || 0), 0) / departures.length / 60; // <- minutes
+
+  // canceled trains rate
+  const cancelRate = ((departures.filter( train => train.canceled === "1").length) / departures.length) * 100;
 
   return (
-    <div className="p-4">
+    <div className="departures-table">
       <h1>Prochains départs de la gare de Nivelles</h1>
       <table>
         <tr>
@@ -65,6 +72,8 @@ function App() {
           )
         })}
       </table>
+      <p>Retard moyen: {avgDelay} min</p>
+      <p>Taux d'annulation: {cancelRate}%</p>
     </div>
   )
 }
