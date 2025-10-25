@@ -15,7 +15,7 @@ function App() {
       const data = await fetchIRail("liveboard", {arrdep: "departure"});
 
       if (data) {
-        setDepartures(data.departures?.departure.slice(0, 8) || []);
+        setDepartures(data.departures?.departure || []);
       }
       setLoading(false);
     }
@@ -24,15 +24,22 @@ function App() {
   }, [])
 
   if (loading) {
-    return <p> Loading departures...</p>;
+    return <p> Chargement des departs...</p>;
   }
   
 
   return (
     <div className="p-4">
-      <h1>Next 3 Departures from Nivelles</h1>
-      <ul>
-        {departures.map((train, index) => {
+      <h1>Prochains départs de la gare de Nivelles</h1>
+      <table>
+        <tr>
+          <th>Heure</th>
+          <th>Destination</th>
+          <th>Voie</th>
+          <th>Type</th>
+          <th>Statut</th>
+        </tr>
+        {departures.map((train) => {
 
           const type = train.vehicleinfo?.type || "?";
 
@@ -40,20 +47,24 @@ function App() {
 
           const delayMin = Math.floor((parseInt(train.delay || 0, 10)) / 60);
 
-          let status = "On time";
+          let status = "A l'heure";
           if (train.canceled === "1") {
-            status = "Canceled"
+            status = "Supprimé"
           } else if (delayMin > 0){
-            status = `Delayed +${delayMin} min`;
+            status = `Retard de +${delayMin} min`;
           }
 
           return (
-            <li key={index}>
-              {type} - {time} - {train.station} {type !== "BUS" ? `- Track ${train.platforminfo.normal}` : ""} - {status}
-            </li>
+            <tr>
+              <th><b>{time}</b></th>
+              <th>{train.station}</th>
+              <th>{type !== "BUS" ? train.platform : "-"}</th>
+              <th>{type}</th>
+              <th>{status}</th>
+            </tr>
           )
         })}
-      </ul>
+      </table>
     </div>
   )
 }

@@ -5,6 +5,7 @@ export async function fetchIRail(endpoint, params = {}) {
     const queryString = new URLSearchParams({
         format: "json",
         station: "Nivelles",
+        lang: "fr",
         ...params,
     }).toString();
 
