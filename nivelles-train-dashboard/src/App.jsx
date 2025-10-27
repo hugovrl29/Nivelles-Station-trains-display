@@ -20,8 +20,11 @@ function App() {
   // fetch data
   useEffect(() => {
 
-    async function loadData() {
-      setLoading(true);
+    async function loadData(first = false) {
+      // only display loading screen at first call
+      if (first) {
+        setLoading(true);
+      }
 
       //extract time for requests
       const current_time = new Date();
@@ -71,10 +74,13 @@ function App() {
       await new Promise(pause => setTimeout(pause, 400));
 
       setDepartures(allDepartures);
-      setLoading(false);
+      if(first){
+        setLoading(false);
+      }
     }
 
-    loadData();
+    // first call
+    loadData(true);
 
     //auto-call every 15s
     const interval = setInterval(() => {
@@ -110,9 +116,17 @@ function App() {
   // canceled trains rate
   const cancelRate = ((previousDepartures.filter( train => train.canceled === "1").length) / previousDepartures.length) * 100;
 
+  //current time
+  const today_time = new Date(current_time * 1000).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  })
+
   return (
     <div className="departures-table">
       <h1>Prochains départs de la gare de Nivelles</h1>
+      <h2>{today_time}</h2>
       <table>
         <thead>
           <tr>
