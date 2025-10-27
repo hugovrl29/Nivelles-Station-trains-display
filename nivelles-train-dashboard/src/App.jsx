@@ -74,8 +74,25 @@ function App() {
       // prevent 429 Too Many Requests Error
       await new Promise(pause => setTimeout(pause, 400));
 
-      setDepartures(allDepartures);
-      if(first){
+      // clean list (remove duplicates + sort)
+      // remove duplicates
+      const seen = new Set();
+      let uniqueDepartures = allDepartures.filter(
+        departure => {
+          const key = `${departure.vehicle}-${departure.time}`;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        }
+      )
+
+      // sort
+      uniqueDepartures.sort((departure1, departure2) => Number(departure1.time) - Number(departure2.time));
+
+      setDepartures(uniqueDepartures);
+
+      // only display loading at first fetch
+      if (first) {
         setLoading(false);
       }
     }
@@ -95,6 +112,7 @@ function App() {
   if (loading) {
     return <p> Chargement des departs...</p>;
   }
+
 
   //future departures
   const upcomingDepartures = departures.filter(
