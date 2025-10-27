@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-import { fetchIRail } from './utils/fetchStation';
 import Dashboard from './components/Dashboard';
 
 function App() {
