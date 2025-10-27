@@ -36,7 +36,8 @@ function App() {
       //API calls
       try {
         // one call per hour batch
-        for (const offset in offsets) {
+        for (const offset of offsets) {
+
           const date = new Date(current_time.getTime() + offset * 3600 * 1000);
 
           //get trains from previous day if offset is yesterday
