@@ -8,7 +8,7 @@ import { fetchIRail } from "../utils/fetchStation";
 function Dashboard(){
     const [departures, setDepartures] = useState([])
     const [loading, setLoading] = useState(true)
-    const [current_time, setCurrentTime] = useState(Date.now() / 1000)
+    const [currentTime, setCurrentTime] = useState(Date.now() / 1000)
 
     //time update
     useEffect(() => {
@@ -29,7 +29,7 @@ function Dashboard(){
         }
 
         //extract time for requests
-        const current_time = new Date();
+        const currentTime = new Date();
         const offsets = Array.from({length: 6 }, (_, i) => i-3);
 
         // store all departures
@@ -40,16 +40,16 @@ function Dashboard(){
             // one call per hour batch
             for (const offset of offsets) {
 
-            const date = new Date(current_time.getTime() + offset * 3600 * 1000);
+            const date = new Date(currentTime.getTime() + offset * 3600 * 1000);
 
             //get trains from previous day if offset is yesterday
             const day = String(date.getDate()).padStart(2, "0");
             const month = String(date.getMonth() + 1). padStart(2, "0");
             const year = String(date.getFullYear()).slice(2)
 
-            const date_format = day + month + year; // <- ddmmyy format
+            const dateFormat = day + month + year; // <- ddmmyy format
 
-            const time_format = date
+            const timeFormat = date
                 .toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -59,8 +59,8 @@ function Dashboard(){
 
             // call
             const data = await fetchIRail("liveboard", {
-                date: date_format,
-                time: time_format,
+                date: dateFormat,
+                time: timeFormat,
             });
 
             // add data to list
@@ -113,17 +113,17 @@ function Dashboard(){
 
     //future departures
     const upcomingDepartures = departures.filter(
-        departure => Number(departure.time) >= current_time && Number(departure.time) <= current_time + 2 * 3600
+        departure => Number(departure.time) >= currentTime && Number(departure.time) <= currentTime + 2 * 3600
     );
 
     //next hour departures
     const nextDepartures = upcomingDepartures.filter(
-        departure => Number(departure.time) <= current_time + 3600
+        departure => Number(departure.time) <= currentTime + 3600
     );
 
     //past departures
     const previousDepartures = departures.filter(
-        departure => Number(departure.time) <= current_time
+        departure => Number(departure.time) <= currentTime
     );
     
     // compute mean delay
@@ -134,7 +134,7 @@ function Dashboard(){
 
     return (
         <div className="dashboard">
-            <Clock currentTime={current_time} />
+            <Clock currentTime={currentTime} />
             {loading ? <p>Chargement des départs...</p> : (
                 <>
                     <DeparturesTable departures={upcomingDepartures} />
