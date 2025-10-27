@@ -116,12 +116,12 @@ function App() {
 
   //future departures
   const upcomingDepartures = departures.filter(
-    departure => Number(departure.time) >= current_time
+    departure => Number(departure.time) >= current_time && Number(departure.time) <= current_time + 2 * 3600
   );
 
   //next hour departures
   const nextDepartures = upcomingDepartures.filter(
-    departure => Number(departure.time) <= current_time + 2 * 3600
+    departure => Number(departure.time) <= current_time + 3600
   );
 
   //past departures
