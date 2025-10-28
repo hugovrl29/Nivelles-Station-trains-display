@@ -85,6 +85,11 @@ function Dashboard() {
         return true;
       });
 
+      // remove line S35
+      uniqueDepartures = uniqueDepartures.filter(
+        (departure) => departure.vehicleinfo?.type !== "S35"
+      );
+
       // sort
       uniqueDepartures.sort(
         (departure1, departure2) =>

@@ -30,7 +30,7 @@ function DeparturesTable({ departures }) {
               minute: "2-digit",
             });
 
-            const delayMin = Math.floor(parseInt(train.delay || 0, 10) / 60);
+            const delayMin = Number(train.delay);
 
             //status + color
             let status = "à l'heure";
