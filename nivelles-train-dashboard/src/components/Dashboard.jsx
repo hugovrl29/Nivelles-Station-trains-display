@@ -151,7 +151,7 @@ function Dashboard() {
         <Clock currentTime={currentTime} />
       </div>
       {loading ? (
-        <p>Chargement des départs...</p>
+        <p className="text-xl text-center">Chargement des départs...</p>
       ) : (
         <>
           <DeparturesTable departures={upcomingDepartures} />
