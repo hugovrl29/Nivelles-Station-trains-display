@@ -2,8 +2,7 @@ import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
-    <div className="departures-table">
-      <h1>Prochains départs de la gare de Nivelles</h1>
+    <div className="min-h-screen bg-blue-900 text-white">
       <Dashboard />
     </div>
   );

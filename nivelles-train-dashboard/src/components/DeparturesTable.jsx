@@ -1,14 +1,24 @@
 function DeparturesTable({ departures }) {
   return (
-    <div className="departures-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Heure</th>
-            <th>Destination</th>
-            <th>Voie</th>
-            <th>Type</th>
-            <th>Statut</th>
+    <div className="flex flex-col items-center justify-center p-6">
+      <table className="min-w-full border">
+        <thead className="bg-blue-800">
+          <tr className="border-b border-gray-200 hover::bg-gray-100 transition">
+            <th className="px-4 py-2 text-xl font-semibold text-center">
+              Heure
+            </th>
+            <th className="px-4 py-2 text-xl font-semibold text-center">
+              Destination
+            </th>
+            <th className="px-4 py-2 text-xl font-semibold text-center">
+              Voie
+            </th>
+            <th className="px-4 py-2 text-xl font-semibold text-center">
+              Type
+            </th>
+            <th className="px-4 py-2 text-xl font-semibold text-center">
+              Statut
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -22,19 +32,58 @@ function DeparturesTable({ departures }) {
 
             const delayMin = Math.floor(parseInt(train.delay || 0, 10) / 60);
 
-            let status = "A l'heure";
-            if (train.canceled === "1") status = "Supprimé";
-            else if (delayMin > 0) status = `Retard de ${delayMin} min`;
+            //status + color
+            let status = "à l'heure";
+            let statusColor =
+              "from-green-500 from-30% via-green-600 via-50% to-green-700 to-70%";
+            if (train.canceled === "1") {
+              status = "supprimé";
+              statusColor =
+                "from-red-500 from-30% via-red-600 via-50% to-red-700 to-70%";
+            } else if (delayMin > 0) {
+              status = `+${delayMin} min`;
+              statusColor =
+                "from-yellow-500 from-30% via-yellow-600 via-50% to-orange-600 to-70%";
+            }
+
+            // type colors
+            let typeColor =
+              "from-gray-300 from-30% via-gray-400 via-50% to-gray-500 to-70%";
+            if (type === "IC")
+              typeColor =
+                "from-blue-400 from-30% via-blue-500 via-50% to-blue-600 to-70%";
+            else if (type.startsWith("S"))
+              typeColor =
+                "from-yellow-400 from-30% via-yellow-500 via-50% to-yellow-600 to-70%";
 
             return (
-              <tr key={index}>
-                <td>
-                  <b>{time}</b>
+              <tr
+                key={index}
+                className="border-b border-gray-200 hover::bg-gray-100 transition"
+              >
+                <td className="px-4 py-2 text-xl font-bold text-center">
+                  {time}
                 </td>
-                <td>{train.station}</td>
-                <td>{type !== "BUS" ? train.platform : "-"}</td>
-                <td>{type}</td>
-                <td>{status}</td>
+                <td className="px-4 py-2 font-bold text-left">
+                  {train.station}
+                </td>
+                <td className="px-4 py-2 text-xl font-bold text-center">
+                  {type !== "BUS" ? train.platform : "-"}
+                </td>
+                <td className="px-4 py-2 text-center">
+                  <span
+                    className={`inline-block w-14 px-3 py-1 rounded-xl text-white font-bold shadow-md bg-gradient-to-b ${typeColor}`}
+                  >
+                    {type}
+                  </span>
+                </td>
+                <td className="px-4 py-2 text-center">
+                  <span
+                    className={`inline-block px-3 py-1 rounded-sm text-white font-semibold shadow-md bg-gradient-to-b ${statusColor}`}
+                  >
+                    {status}
+                  </span>
+                </td>
               </tr>
             );
           })}

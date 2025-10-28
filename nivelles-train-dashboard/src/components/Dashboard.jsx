@@ -143,8 +143,13 @@ function Dashboard() {
     100;
 
   return (
-    <div className="dashboard">
-      <Clock currentTime={currentTime} />
+    <div className="p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">
+          Prochains départs de la gare de Nivelles
+        </h2>
+        <Clock currentTime={currentTime} />
+      </div>
       {loading ? (
         <p>Chargement des départs...</p>
       ) : (
