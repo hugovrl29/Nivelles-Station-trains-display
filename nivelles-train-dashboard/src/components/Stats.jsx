@@ -5,12 +5,12 @@ function Stats({ avgDelay, cancelRate }) {
   if (avgDelay >= 15) avgColor = "text-red-500";
 
   // text color for cancelations
-  let cancelColor = "text-green-400";
-  if (cancelRate > 1) cancelColor = "text-orange-400";
+  let cancelColor = "text-green-500";
+  if (cancelRate > 1) cancelColor = "text-orange-500";
   if (cancelRate >= 20) cancelColor = "text-red-500";
 
   return (
-    <div className="text-sm text-left">
+    <div className="text-sm flex justify-around">
       <p>
         Retard moyen (prochaine heure):{" "}
         <span className={`text-lg font-bold ${avgColor}`}>

@@ -6,7 +6,7 @@ function Clock({ currentTime }) {
     hour12: false,
   });
 
-  return <span className="text-2xl font-mono">{todayTime}</span>;
+  return <span className="text-3xl font-mono">{todayTime}</span>;
 }
 
 export default Clock;

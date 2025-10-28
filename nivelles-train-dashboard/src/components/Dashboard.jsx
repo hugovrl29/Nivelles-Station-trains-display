@@ -155,7 +155,9 @@ function Dashboard() {
       ) : (
         <>
           <Stats avgDelay={avgDelay} cancelRate={cancelRate} />
-          <DeparturesTable departures={upcomingDepartures} />
+          <div className="max-w-5x1 mx-auto px-4">
+            <DeparturesTable departures={upcomingDepartures} />
+          </div>
         </>
       )}
     </div>
