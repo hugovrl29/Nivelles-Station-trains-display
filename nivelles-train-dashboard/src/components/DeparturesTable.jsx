@@ -72,14 +72,14 @@ function DeparturesTable({ departures }) {
                 </td>
                 <td className="px-4 py-2 text-center">
                   <span
-                    className={`inline-block w-14 px-3 py-1 rounded-xl text-white font-bold shadow-md bg-gradient-to-b ${typeColor}`}
+                    className={`inline-block w-14 px-3 py-1 rounded-xl text-white font-bold bg-gradient-to-b ${typeColor}`}
                   >
                     {type}
                   </span>
                 </td>
                 <td className="px-4 py-2 text-center">
                   <span
-                    className={`inline-block px-3 py-1 rounded-sm text-white font-semibold shadow-md bg-gradient-to-b ${statusColor}`}
+                    className={`inline-block w-30 px-3 py-1 rounded-sm text-white font-semibold bg-gradient-to-b ${statusColor}`}
                   >
                     {status}
                   </span>

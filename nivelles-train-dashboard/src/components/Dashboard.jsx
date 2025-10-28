@@ -154,8 +154,8 @@ function Dashboard() {
         <p className="text-xl text-center">Chargement des départs...</p>
       ) : (
         <>
-          <DeparturesTable departures={upcomingDepartures} />
           <Stats avgDelay={avgDelay} cancelRate={cancelRate} />
+          <DeparturesTable departures={upcomingDepartures} />
         </>
       )}
     </div>
