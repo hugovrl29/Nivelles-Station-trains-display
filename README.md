@@ -42,3 +42,24 @@ Add a new component:
 - Create the component in `src/components`
 - Import it to `src/components/Dashboard` in a new `<div>` block.
 ```
+
+## Setup
+
+1. Clone the repo
+
+```
+git clone https://github.com/hugovrl29/Nivelles-Station-trains-display.git
+cd Nivelles-Station-trains-display/nivelles-train-dashboard
+```
+
+2. Install dependencies
+
+```
+npm install
+```
+
+3. Run
+
+```
+npm run dev
+```
