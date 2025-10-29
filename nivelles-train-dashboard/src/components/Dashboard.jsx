@@ -33,7 +33,7 @@ function Dashboard() {
       // store all departures
       let allDepartures = [];
 
-      //API calls
+      //API calls (iRail)
       try {
         // one call per hour batch
         for (const offset of offsets) {
@@ -154,6 +154,7 @@ function Dashboard() {
           Prochains départs de la gare de Nivelles
         </h2>
         <Clock currentTime={currentTime} />
+        {/* insert a component here*/}
       </div>
       {loading ? (
         <p className="text-xl text-center">Chargement des départs...</p>
@@ -163,6 +164,7 @@ function Dashboard() {
           <div className="max-w-5x1 mx-auto px-4">
             <DeparturesTable departures={upcomingDepartures} />
           </div>
+          {/* insert a API based component here*/}
         </>
       )}
     </div>
