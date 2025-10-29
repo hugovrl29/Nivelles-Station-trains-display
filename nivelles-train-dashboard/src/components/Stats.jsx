@@ -18,7 +18,7 @@ function Stats({ avgDelay, cancelRate }) {
         </span>
       </p>
       <p>
-        Taux d'annulation (3 dernières heures):{" "}
+        Taux d&apos;annulation (3 dernières heures):{" "}
         <span className={`text-lg font-bold ${cancelColor}`}>
           {cancelRate.toFixed(1)}%
         </span>
