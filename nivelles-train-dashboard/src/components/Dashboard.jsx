@@ -87,8 +87,9 @@ function Dashboard() {
       // clean list (remove duplicates + sort)
       // remove duplicates
       const seen = new Set();
+
       let uniqueDepartures = allDepartures.filter((departure) => {
-        const key = `${departure.vehicle}-${departure.time}`;
+        const key = `${departure.platform}-${departure.time}`;
         if (seen.has(key)) return false;
         seen.add(key);
         return true;
