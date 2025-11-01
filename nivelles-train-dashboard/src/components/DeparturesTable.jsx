@@ -52,9 +52,18 @@ function DeparturesTable({ departures }) {
             if (type === "IC")
               typeColor =
                 "from-blue-400 from-40% via-blue-500 via-50% to-blue-600 to-60%";
+            else if (type === "L")
+              typeColor =
+                "from-emerald-300 from-40% via-emerald-400 via-50% to-emerald-500 to-60%";
+            else if (type === "P")
+              typeColor =
+                "from-red-400 from-40% via-red-500 via-50% to-red-600 to-60%";
             else if (type.startsWith("S"))
               typeColor =
                 "from-yellow-400 from-40% via-yellow-500 via-50% to-yellow-600 to-60%";
+            else if (type === "BUS")
+              typeColor =
+                "from-orange-400 from-40% via-orange-500 via-50% to-orange-600 to-60%";
 
             return (
               <tr
