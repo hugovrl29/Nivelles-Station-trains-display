@@ -130,13 +130,15 @@ function Dashboard() {
   //future departures
   const upcomingDepartures = departures.filter(
     (departure) =>
-      Number(departure.time) >= currentTime &&
+      Number(departure.time) + Number(departure.delay) >= currentTime &&
       Number(departure.time) <= currentTime + 2 * 3600
   );
 
   //next hour departures
   const nextDepartures = upcomingDepartures.filter(
-    (departure) => Number(departure.time) <= currentTime + 3600
+    (departure) =>
+      Number(departure.time) + Number(departure.delay) <= // take delay into account
+      currentTime + 3600
   );
 
   //past departures
