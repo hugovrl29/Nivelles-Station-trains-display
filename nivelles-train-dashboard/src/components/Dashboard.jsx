@@ -168,7 +168,7 @@ function Dashboard() {
         <Clock currentTime={currentTime} />
         {/* insert a component here*/}
       </div>
-      {loading ? (
+      {loading || !departures || departures.length === 0 ? (
         <p className="text-xl text-center">Chargement des départs...</p>
       ) : (
         <>
