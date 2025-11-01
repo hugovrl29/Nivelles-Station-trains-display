@@ -85,6 +85,10 @@ function Dashboard() {
       await new Promise((pause) => setTimeout(pause, 400));
 
       // clean list (remove duplicates + sort)
+      // remove line S35 if present
+      allDepartures = allDepartures.filter(
+        (departure) => departure.vehicleinfo?.type !== "S35"
+      );
       // remove duplicates
       const seen = new Set();
 
@@ -94,11 +98,6 @@ function Dashboard() {
         seen.add(key);
         return true;
       });
-
-      // remove line S35
-      uniqueDepartures = uniqueDepartures.filter(
-        (departure) => departure.vehicleinfo?.type !== "S35"
-      );
 
       // sort
       uniqueDepartures.sort(
