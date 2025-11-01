@@ -20,11 +20,15 @@ function Dashboard() {
 
   // fetch data
   useEffect(() => {
+    let abortController = new AbortController();
+
     async function loadData(first = false) {
+      // cancel previous call if needed
+      abortController.abort();
+      abortController = new AbortController();
+
       // only display loading screen at first call
-      if (first) {
-        setLoading(true);
-      }
+      if (first) setLoading(true);
 
       //extract time for requests
       const currentTime = new Date();
@@ -58,6 +62,7 @@ function Dashboard() {
           const data = await fetchIRail("liveboard", {
             date: dateFormat,
             time: timeFormat,
+            signal: abortController.signal,
           });
 
           // add data to list
@@ -68,6 +73,10 @@ function Dashboard() {
           }
         }
       } catch (error) {
+        if (error.name === "AbortError") {
+          console.log("Fetch Aborted");
+          return; // if aborted, do nothing
+        }
         console.error("Error while fetching data:", error);
         setDepartures([]);
       }
@@ -112,7 +121,10 @@ function Dashboard() {
       loadData();
     }, 15000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      abortController.abort();
+    };
   }, []);
 
   //future departures

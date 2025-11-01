@@ -1,18 +1,20 @@
 const BASE_URL = "https://api.irail.be";
 
 export async function fetchIRail(endpoint, params = {}) {
+  const { signal, ...otherParams } = params;
   const queryString = new URLSearchParams({
     format: "json",
     station: "Nivelles",
     arrdep: "departure",
     lang: "fr",
-    ...params,
+    ...otherParams,
   }).toString();
 
   const url = `${BASE_URL}/${endpoint}/?${queryString}`;
 
   try {
     const response = await fetch(url, {
+      signal,
       headers: {
         "User-Agent":
           "Nivelles-Station-trains-display/1.0 (https://github.com/hugovrl29; verlyhugo959@gmail.com)",
@@ -28,6 +30,10 @@ export async function fetchIRail(endpoint, params = {}) {
 
     return data;
   } catch (error) {
+    if (error.name === "AbortError") {
+      console.warn("Fetch aborted");
+      return null;
+    }
     console.error(`Error fetching from ${endpoint}:`, error);
     return null;
   }
